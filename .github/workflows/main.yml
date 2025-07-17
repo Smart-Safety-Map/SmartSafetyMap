@@ -1,20 +1,50 @@
-name: Auto PR to main
+name: Auto PR & Auto Merge to main
 
 on:
   push:
     branches-ignore:
-      - 'main'       # main 브랜치만 트리거에서 제외
+      - 'main'
+
 jobs:
-  create-pull-request:
+  create-and-merge-pr:
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
         uses: actions/checkout@v4
 
       - name: PR 자동 생성(main 기준)
+        id: cpr
         uses: peter-evans/create-pull-request@v6
         with:
           base: main
           branch: ${{ github.ref_name }}
           title: 'Auto PR: ${{ github.ref_name }} → main'
-          body: '자동화된 PR: ${{ github.ref_name }} 브랜치를 main에 머지합니다.'
+          body: '자동 PR 생성 및 머지: ${{ github.ref_name }} 브랜치를 main에 병합합니다.'
+          # GITHUB_TOKEN으로 PR 생성, head 브랜치가 보호되어 있으면 병합 실패할 수 있음
+
+      - name: PR 자동 머지(main)
+        if: steps.cpr.outputs.pull-request-url != '' # PR이 실제 생성됐을 때만 동작
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}  # 또는 쓰기 권한 PAT(권장)
+          script: |
+            const pr_url = '${{ steps.cpr.outputs.pull-request-url }}';
+            const pr_number = pr_url.split('/').pop();
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr_number
+            });
+
+            // PR이 merge 가능한 상태일 때 merge를 시도합니다
+            if (pr.mergeable) {
+              await github.rest.pulls.merge({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                pull_number: pr_number,
+                merge_method: 'squash', // 또는 'merge', 'rebase'
+              });
+              console.log('PR 자동 머지 완료');
+            } else {
+              console.log('PR이 아직 merge 가능한 상태가 아님');
+            }
