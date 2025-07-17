@@ -4,12 +4,16 @@ on:
   push:
     branches-ignore:
       - 'main'       # main 브랜치만 트리거에서 제외
+    branches:
+      - '*'          # 모든 브랜치
+      - '**'         # 계층형 브랜치도 모두 포함
+
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: 체크아웃
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: PR 자동 생성(main 기준)
         uses: peter-evans/create-pull-request@v6
