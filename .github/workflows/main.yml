@@ -1,0 +1,22 @@
+name: Auto PR to main
+
+on:
+  push:
+    branches:
+      - '*'          # 모든 브랜치에서 push를 감지합니다.
+      - '**'         # 서브 브랜치까지 모두 잡기(네임스페이스 구분 포함)
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: PR 자동 생성(main 기준)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          base: main
+          branch: ${{ github.ref_name }}
+          title: 'Auto PR: ${{ github.ref_name }} → main'
+          body: '자동화된 PR: ${{ github.ref_name }} 브랜치를 main에 머지합니다.'
