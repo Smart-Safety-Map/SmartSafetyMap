@@ -12,7 +12,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authz) -> authz
-                        .anyRequest().permitAll()   // 모든 요청을 허용d
+                        .anyRequest().permitAll()   // 모든 요청을 허용
                 )
                 .csrf(csrf -> csrf.disable()); // (옵션) 개발 편의를 위해 CSRF 비활성화
         return http.build();
