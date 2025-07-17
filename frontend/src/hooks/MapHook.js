@@ -39,4 +39,4 @@ const MapHook = () => {
     return {mapRef, myLocation};
 };
 
-export default MapHook();
+export default MapHook;
