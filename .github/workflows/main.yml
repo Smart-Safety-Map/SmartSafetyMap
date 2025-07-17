@@ -13,10 +13,11 @@ jobs:
       - name: 체크아웃
         uses: actions/checkout@v4
 
-      - name: PR 자동 생성(main 기준)
-        uses: peter-evans/create-pull-request@v6
-        with:
-          base: main
-          branch: ${{ github.ref_name }}
-          title: 'Auto PR: ${{ github.ref_name }} → main'
-          body: '자동화된 PR: ${{ github.ref_name }} 브랜치를 main에 머지합니다.'
+    - name: PR 자동 생성(main 기준)
+    if: github.ref_name != 'main'   # ⭐️ 추가된 중요 조건
+    uses: peter-evans/create-pull-request@v6
+    with:
+      base: main
+      branch: ${{ github.ref_name }}
+      title: 'Auto PR: ${{ github.ref_name }} → main'
+      body: '자동화된 PR: ${{ github.ref_name }} 브랜치를 main에 머지합니다.'
