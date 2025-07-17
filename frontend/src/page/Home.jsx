@@ -1,5 +1,5 @@
 import React from 'react';
-import MapHook from 'src/hooks/MapHook';
+import MapHook from '/src/hooks/MapHook.js';
 
 const Home = () => {
     const {mapRef, myLocation} = MapHook();
