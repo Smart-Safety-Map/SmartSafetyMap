@@ -10,11 +10,27 @@ spring:
       allowed-methods: GET, POST, PUT, DELETE, PATCH
       allowed-headers: "*"
       allow-credentials: true
+
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+      schema: classpath:org/springframework/batch/core/schema-mysql.sql
+
   datasource:
-    url: jdbc:mysql://localhost:3306/sheepship?useSSL=false&serverTimezone=Asia/Seoul
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    meta:  # 메타데이터용 DB
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/batch_meta
+      username: root
+      password: root
+    domain:  # 배치 작업(도메인) 데이터 DB
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost:3306/traffic_info
+      username: root
+      password: root
+      auto-commit: false
+
 
   jpa:
     hibernate:
