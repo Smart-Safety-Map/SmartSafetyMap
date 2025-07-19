@@ -28,10 +28,6 @@ public class TrafficInfo {
 
     @NonNull
     @Column(nullable = false)
-    private String roadDirection;
-
-    @NonNull
-    @Column(nullable = false)
     private String lanesBlocked;
 
 

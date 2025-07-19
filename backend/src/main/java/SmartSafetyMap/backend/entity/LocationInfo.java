@@ -16,7 +16,7 @@ public class LocationInfo {
 
     @NonNull
     @Column(nullable = false)
-    private String locationType;
+    private LocationType locationType;
 
     private double xCoord;
 

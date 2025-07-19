@@ -14,12 +14,8 @@ public class EventInfo {
     @Column(name = "evnet_info_id")
     private Long id;
 
-    @NonNull
-    @Column(nullable = false)
     private String eventTypeId;
 
-    @NonNull
-    @Column(nullable = false)
     private String evenDetailType;
 
     @NonNull
