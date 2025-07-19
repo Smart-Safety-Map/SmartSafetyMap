@@ -29,9 +29,20 @@ const MapHook = () => {
         if (window.naver && window.naver.maps && myLocation && mapRef.current) {
             //5. myLocation state가 설정되면 지도를 생성
             if (!mapRef.current.__naver_map) {
-                mapRef.current.__naver_map = new window.naver.maps.Map(mapRef.current, {
+                const map = new window.naver.maps.Map(mapRef.current, {
                     center: myLocation, //지도의 중심을 현재 위치로 설정
-                    zoom: 10,
+                    zoom: 17,
+                });
+                mapRef.current.__naver_map = map;
+
+                // 현재 위치에 점으로 표시
+                new window.naver.maps.Marker({
+                    position: myLocation,
+                    map: map,
+                    icon: {
+                        content: '<div style="width: 10px; height: 10px; background-color: #007AFF; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 5px rgba(0,0,0,0.3);"></div>',
+                        anchor: new window.naver.maps.Point(7, 7)
+                    }
                 });
             }
         }
