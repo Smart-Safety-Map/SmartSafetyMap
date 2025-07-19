@@ -17,6 +17,7 @@ public class UTICXmlService {
 
     String url = "http://www.utic.go.kr/guide/imsOpenData.do?key=quzI6bzs7NwMdwMdWt66pZdePQZjySH7oKYC12zk";
 
+    //url에있는 xml파일을 String 형태로 변환 코드
     public String fecthXmlAsString(String url) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.getForEntity(url,String.class);
@@ -24,6 +25,7 @@ public class UTICXmlService {
     }
 
 
+    //String 으로 변환된 Xml파일을 UTICResponse에 파싱하여 자바 객체로 변환 코드
     public List<UTICXmlDto> XmlToDto(String xml) throws Exception {
         XmlMapper xmlMapper = new XmlMapper();
 
@@ -33,6 +35,7 @@ public class UTICXmlService {
         return response.getRecord();
     }
 
+    //자바객체로 변환되었는지 확인하기 위한 코드
     public List<UTICXmlDto> getXmlAsString() {
         try {
             return  XmlToDto(fecthXmlAsString(url));

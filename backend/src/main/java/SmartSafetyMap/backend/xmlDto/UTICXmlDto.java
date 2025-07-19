@@ -8,18 +8,18 @@ import lombok.Setter;
 @Getter @Setter
 public class UTICXmlDto {
 
-    private String incidenteTypeCd;
-    private String incidenteSubTypeCd;
-    private String locationDataX;
-    private String locationDataY;
-    private String incidenteGradeCd;
-    private String incidentTitle;
-    private String incTrafficCode;
-    private String startDate;
-    private String endDate;
-    private String lane;
-    private String controlType;
-    private String updateDate;
+    private String incidenteTypeCd; //돌발유형
+    private String incidenteSubTypeCd; //돌발 세부 유형
+    private String locationDataX; //x좌표
+    private String locationDataY; //y좌표
+    private String incidenteGradeCd; // 돌발등급
+    private String incidentTitle; //돌발제목
+    private String incTrafficCode; //소통 등급
+    private String startDate; // 발생일
+    private String endDate; //종료일
+    private String lane; //차선
+    private String controlType; //통제 정보
+    private String updateDate; // 돌발갱신 일지
 }
 
 
