@@ -35,6 +35,19 @@ public class UTICXmlService {
         return response.getRecord();
     }
 
+    //String 으로 변환된 Xml파일을 UTICResponse에 파싱하여 자바 객체로 변환 코드
+    public UTICResponse XmlToResponse(String xml) throws Exception {
+        XmlMapper xmlMapper = new XmlMapper();
+
+        xmlMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+        UTICResponse response = xmlMapper.readValue(xml, UTICResponse.class);
+        return response;
+    }
+
+
+
+
     //자바객체로 변환되었는지 확인하기 위한 코드
     public List<UTICXmlDto> getXmlAsString() {
         try {

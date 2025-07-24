@@ -1,5 +1,6 @@
 package SmartSafetyMap.backend.entity;
 
+import SmartSafetyMap.backend.dtos.EntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,20 +15,34 @@ public class EventInfo {
     @Column(name = "evnet_info_id")
     private Long id;
 
-    private String eventTypeId;
+    private String eventType; //이벤트 유형
 
-    private String evenDetailType;
-
-    @NonNull
-    @Column(nullable = false)
-    private String message;
+    private String evenDetailType;//이벤트  세부 유형
 
     @NonNull
     @Column(nullable = false)
-    private String grade;
+    private String message; //이벤트 상세 설명
+
+    @NonNull
+    @Column(nullable = false)
+    private String grade; //위험 등급
 
 
     @OneToOne(mappedBy = "eventInfo", fetch = FetchType.LAZY)
     private TrafficInfo trafficInfo;
+
+    public EventInfo() {
+
+    }
+
+    public EventInfo getEventInfo(EntityDto dto) {
+        EventInfo eventInfo = new EventInfo();
+        eventInfo.setEventType(dto.getEventType());
+        eventInfo.setMessage(dto.getMessage());
+        eventInfo.setGrade(dto.getGrade());
+        return eventInfo;
+
+    }
+
 
 }

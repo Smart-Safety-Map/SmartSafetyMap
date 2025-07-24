@@ -3,6 +3,8 @@ package SmartSafetyMap.backend.xmlDto;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Getter
@@ -89,22 +91,27 @@ public enum UTICIcnType {
         this.description = description;
     }
 
+    private static final Map<Integer, String> MAIN_CODE_TO_TYPE = new HashMap<>();
+    private static final Map<String, String> CODE_PAIR_TO_DESC = new HashMap<>();
 
-    /**
-     * mainCode와 subCode 조합으로 enum 상수를 조회합니다.
-     */
+    static {
+        for (UTICIcnType e : values()) {
+            // mainCode 기준 type
+            MAIN_CODE_TO_TYPE.putIfAbsent(e.mainCode, e.type);
+
+            // mainCode,subCode 기준 description (Key 문자열 조립)
+            String key = e.mainCode + "_" + e.subCode;
+            CODE_PAIR_TO_DESC.put(key, e.description);
+        }
+    }
+
+    // 기존 생성자, getter 생략
+
     public static String getTypeByMainCode(int mainCode) {
-        return Arrays.stream(values())
-                .filter(e -> e.mainCode == mainCode)
-                .map(UTICIcnType::getType)
-                .findFirst()
-                .orElse("알 수 없는 유형");
+        return MAIN_CODE_TO_TYPE.getOrDefault(mainCode, "알 수 없는 유형");
     }
     public static String getDescriptionByCodes(int mainCode, int subCode) {
-        return Arrays.stream(values())
-                .filter(e -> e.mainCode == mainCode && e.subCode == subCode)
-                .map(UTICIcnType::getDescription)
-                .findFirst()
-                .orElse("알 수 없는 코드 조합");
+        String key = mainCode + "_" + subCode;
+        return CODE_PAIR_TO_DESC.getOrDefault(key, "알 수 없는 코드 조합");
     }
-    }
+}
