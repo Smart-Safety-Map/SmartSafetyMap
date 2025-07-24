@@ -16,4 +16,7 @@ public class EventTimeRepository {
         em.persist(eventTime);
     }
 
+    public void delete() {
+        em.createQuery("delete from EventTime ").executeUpdate();
+    }
 }

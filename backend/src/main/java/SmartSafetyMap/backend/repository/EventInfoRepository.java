@@ -15,6 +15,8 @@ public class EventInfoRepository {
         em.persist(eventInfo);
     }
 
-
+    public void delete() {
+        em.createQuery("delete from EventInfo ").executeUpdate();
+    }
 
 }

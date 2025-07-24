@@ -2,10 +2,14 @@ package SmartSafetyMap.backend.service;
 
 import SmartSafetyMap.backend.dtos.EntityDto;
 import SmartSafetyMap.backend.entity.*;
+import SmartSafetyMap.backend.repository.EventInfoRepository;
+import SmartSafetyMap.backend.repository.EventTimeRepository;
+import SmartSafetyMap.backend.repository.LocationInfoRepository;
 import SmartSafetyMap.backend.repository.TrafficInfoReposity;
 import SmartSafetyMap.backend.xmlDto.UTICGrade;
 import SmartSafetyMap.backend.xmlDto.UTICIcnType;
 import SmartSafetyMap.backend.xmlDto.UTICResponse;
+import jakarta.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +26,9 @@ import java.util.stream.Collectors;
 public class UTICPersistenceService {
 
 
+    private final EventTimeRepository eventTimeRepository;
+    private final EventInfoRepository eventInfoRepository;
+    private final LocationInfoRepository locationInfoRepository;
     private  final TrafficInfoReposity trafficInfoReposity;
     private final UTICXmlService utcXmlService;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 HH시 mm분");
@@ -95,7 +102,7 @@ public class UTICPersistenceService {
 
 
 
-    //엔티티로 매핑한 로직을통해 엔티티들에게 저장하는 로직
+    //엔티티로 매핑한 로직을통해 엔티티들에게 저장하는 로직 db저장못하는 문제 해결 못함
     @Transactional
     public void allSave(List<EntityDto> entityDtos) {
         int a = 1;
@@ -106,11 +113,17 @@ public class UTICPersistenceService {
                     new EventTime().getEventTime(entityDto),
                     new LocationInfo().getLocationInfo(entityDto),
                     new EventInfo().getEventInfo(entityDto)));
+            trafficInfoReposity.flush();
         }
 
 
     }
-
-    //내일 배치 완료하고 데이터 로직생성할때 필요한 조건들 생각해보기
-
+    //모든 데이터 삭제 로직 공통로직이 될 예정 여기부터 현재 아이피 변경으로 테스트 불가능
+    @Transactional
+    public void allDelete(){
+        trafficInfoReposity.delete();
+        eventInfoRepository.delete();
+        locationInfoRepository.delete();
+        eventTimeRepository.delete();
+    }
 }

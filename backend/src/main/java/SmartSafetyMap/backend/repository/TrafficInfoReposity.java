@@ -18,6 +18,14 @@ public class TrafficInfoReposity {
         em.persist(trafficInfo);
     }
 
+    public void delete() {
+        em.createQuery("delete from TrafficInfo").executeUpdate();
+    }
+
+    public void flush() {
+        em.flush();
+    }
+
     public void allsave(List<TrafficInfo> trafficInfos) {
         em.persist(trafficInfos);
     }

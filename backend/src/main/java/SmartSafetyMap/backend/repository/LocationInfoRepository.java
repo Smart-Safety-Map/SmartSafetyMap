@@ -16,5 +16,9 @@ public class LocationInfoRepository {
         em.persist(locationInfo);
     }
 
+    public void delete() {
+        em.createQuery("delete from LocationInfo ").executeUpdate();
+    }
+
 
 }

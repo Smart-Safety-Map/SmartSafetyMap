@@ -24,6 +24,7 @@ public class UTIXXmlController {
         return utcXmlService.getXmlAsString();
     }
 
+
     @GetMapping("/testgetEntityDto")
     public List<EntityDto> testgetEntityDto() throws Exception {
         return persistenceService.UTICMappingTOEntityDto(utcXmlService.XmlToResponse(
