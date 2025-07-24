@@ -1,5 +1,6 @@
 package SmartSafetyMap.backend.entity;
 
+import SmartSafetyMap.backend.dtos.EntityDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -26,10 +27,23 @@ public class TrafficInfo {
     @JoinColumn(name = "location_id")
     private LocationInfo locationInfo;
 
-    @NonNull
-    @Column(nullable = false)
-    private String lanesBlocked;
+    private String roadDrcType; //차단차로 정보
 
+    private String lanesBlocked; //차단차로 정보
 
+    public TrafficInfo() {
+
+    }
+
+    public static TrafficInfo fromDto(EntityDto dto, EventTime eventTime,
+                       LocationInfo locationInfo, EventInfo eventInfo) {
+       TrafficInfo trafficInfo = new TrafficInfo();
+       trafficInfo.setEventInfo(eventInfo);
+       trafficInfo.setEventTime(eventTime);
+       trafficInfo.setLocationInfo(locationInfo);
+       trafficInfo.setLanesBlocked(dto.getLanesBlocked());
+       trafficInfo.setRoadDrcType(dto.getRoadDrcType());
+       return trafficInfo;
+    }
 
 }
