@@ -12,7 +12,7 @@ public class QuartzSchedulerConfig {
     public JobDetail chatRoomCleanupJobDetail() {
         return JobBuilder.newJob(UTICDeleteInsertJob.class)
                 .withIdentity("UTIC Info Delete Insert Job")
-                .storeDurably()  // 작업이 트리거와 연결되지 않아도 저장되어야 함?
+                .storeDurably()
                 .build();
     }
 
