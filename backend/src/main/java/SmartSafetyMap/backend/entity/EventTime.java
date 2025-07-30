@@ -28,7 +28,7 @@ public class EventTime{
 
     private LocalDateTime updateTime; //갱신 일시
 
-    @OneToOne(mappedBy = "eventTime", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "eventTime",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private TrafficInfo trafficInfo;
 
     public EventTime() {

@@ -4,7 +4,9 @@ import SmartSafetyMap.backend.entity.EventTime;
 import SmartSafetyMap.backend.entity.TrafficInfo;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class TrafficInfoReposity {
     public void save(TrafficInfo trafficInfo) {
         em.persist(trafficInfo);
     }
-
+    @Modifying
     public void delete() {
         em.createQuery("delete from TrafficInfo").executeUpdate();
     }

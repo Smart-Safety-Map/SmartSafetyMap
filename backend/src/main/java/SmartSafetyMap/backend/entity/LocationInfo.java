@@ -25,7 +25,7 @@ public class LocationInfo {
 
     private String sectionCoord; //구간 좌표
 
-    @OneToOne(mappedBy = "locationInfo", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "locationInfo",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private TrafficInfo trafficInfo;
 
     public LocationInfo() {

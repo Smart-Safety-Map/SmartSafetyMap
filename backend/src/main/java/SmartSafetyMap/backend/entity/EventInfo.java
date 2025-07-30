@@ -23,12 +23,10 @@ public class EventInfo {
     @Column(nullable = false)
     private String message; //이벤트 상세 설명
 
-    @NonNull
-    @Column(nullable = false)
     private String grade; //위험 등급
 
 
-    @OneToOne(mappedBy = "eventInfo", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "eventInfo",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private TrafficInfo trafficInfo;
 
     public EventInfo() {

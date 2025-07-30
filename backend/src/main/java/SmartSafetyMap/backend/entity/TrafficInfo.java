@@ -31,9 +31,6 @@ public class TrafficInfo {
 
     private String lanesBlocked; //차단차로 정보
 
-    public TrafficInfo() {
-
-    }
 
     public static TrafficInfo fromDto(EntityDto dto, EventTime eventTime,
                        LocationInfo locationInfo, EventInfo eventInfo) {
