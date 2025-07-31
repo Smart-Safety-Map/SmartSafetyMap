@@ -1,11 +1,14 @@
 package SmartSafetyMap.backend.service;
 
+import SmartSafetyMap.backend.dtos.EntityDto;
+import SmartSafetyMap.backend.repository.TrafficInfoReposity;
 import SmartSafetyMap.backend.xmlDto.NTICResponse;
 import SmartSafetyMap.backend.xmlDto.NTICXmlDto;
 import SmartSafetyMap.backend.xmlDto.UTICResponse;
 import SmartSafetyMap.backend.xmlDto.UTICXmlDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -15,6 +18,7 @@ import java.util.List;
 
 @Service
 public class NTICXmlService {
+
 
 
         String url = "https://openapi.its.go.kr:9443/eventInfo?apiKey=70cc70fa9a8044b08ea5b54a5dd42218&type=all&eventType=all&getType=xml";
@@ -35,6 +39,8 @@ public class NTICXmlService {
 
             return xmlMapper.readValue(xml, NTICResponse.class);
         }
+
+
 
 
 

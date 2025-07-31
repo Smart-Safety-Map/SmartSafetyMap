@@ -3,6 +3,7 @@ package SmartSafetyMap.backend.domain;
 import SmartSafetyMap.backend.dtos.EntityDto;
 import SmartSafetyMap.backend.entity.TrafficInfo;
 import SmartSafetyMap.backend.service.NTICXmlService;
+import SmartSafetyMap.backend.service.NticInquiryService;
 import SmartSafetyMap.backend.service.NticPersistenceService;
 import SmartSafetyMap.backend.xmlDto.NTICXmlDto;
 import SmartSafetyMap.backend.xmlDto.UTICXmlDto;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ntic")
+@RequestMapping("/api/ntic")
 public class NTICXmlController {
 
 
@@ -25,6 +26,8 @@ public class NTICXmlController {
     private NTICXmlService nticXmlService;
     @Autowired
     private NticPersistenceService nticPersistenceService;
+    @Autowired
+    private NticInquiryService nticInquiryService;
 
     @GetMapping
     public String getString() {
@@ -62,6 +65,11 @@ public class NTICXmlController {
     public String testDBConnection() {
         nticPersistenceService.testDbConnection();
         return "success";
+    }
+    @GetMapping("/getAllAcident")
+    public List<EntityDto> getAllAcident() {
+        List<EntityDto> acidentList = nticInquiryService.getAllAcident();
+        return acidentList;
     }
 
 

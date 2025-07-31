@@ -17,7 +17,7 @@ public class EventInfo {
 
     private String eventType; //이벤트 유형
 
-    private String evenDetailType;//이벤트  세부 유형
+    private String eventDetailType;//이벤트  세부 유형
 
     @NonNull
     @Column(nullable = false)

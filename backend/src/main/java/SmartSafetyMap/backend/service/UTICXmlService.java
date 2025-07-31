@@ -44,6 +44,7 @@ public class UTICXmlService {
         UTICResponse response = xmlMapper.readValue(xml, UTICResponse.class);
         return response;
     }
+    //해당 좌표를 받아서 좌표의 구간까지 확인하여 가져오기
 
 
 
