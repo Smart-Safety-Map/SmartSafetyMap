@@ -1,6 +1,26 @@
 import {useState, useEffect, useRef} from 'react';
+import axios from "axios";
 
 const MapHook = () => {
+
+    const [acidentList, setAcidentList] = useState([]);
+
+    const getAcidentList = async () => {
+        try {
+            const response = await axios.get("/api/ntic/getAllAcident");
+
+            // JSON 전체를 그대로 저장
+            setAcidentList(response.data);
+        } catch (error) {
+            console.error("데이터 불러오기 실패", error);
+        }
+    };
+
+    useEffect(() => {
+        getAcidentList();
+    }, []);
+
+
     const mapRef = useRef(null);
     //1. 위치 정보를 저장할 state 추가
     const [myLocation, setMyLocation] = useState(null);
@@ -34,6 +54,28 @@ const MapHook = () => {
                     zoom: 17,
                 });
                 mapRef.current.__naver_map = map;
+                acidentList.forEach((item, index) => {
+                    console.log(`🚨 사고 위치 [${index}]`, item);
+
+                    const marker = new window.naver.maps.Marker({
+                        position: new window.naver.maps.LatLng(item.ycoord, item.xcoord), // y: 위도, x: 경도
+                        map: map,
+                        icon: {
+                            content: '<div style="width: 3px; height: 3px;font-size:13px;">🚧</div>',
+                            anchor: new window.naver.maps.Point(5, 5)
+                        }
+                    });
+                    const infoWindow = new window.naver.maps.InfoWindow({
+                        content: `<div style="padding:10px; font-size:10px;">
+                                     ${item.message || '돌발 정보'}
+                                  </div>`
+                    });
+
+                    window.naver.maps.Event.addListener(marker, 'click', function () {
+                        infoWindow.open(map, marker);
+                    });
+
+                });
 
                 // 현재 위치에 점으로 표시
                 new window.naver.maps.Marker({
@@ -44,6 +86,7 @@ const MapHook = () => {
                         anchor: new window.naver.maps.Point(7, 7)
                     }
                 });
+
             }
         }
     }, [myLocation]);

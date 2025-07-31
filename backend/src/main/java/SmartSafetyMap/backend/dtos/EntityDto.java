@@ -7,6 +7,29 @@ import java.time.LocalDateTime;
 
 @Data
 public class EntityDto {
+    public EntityDto() {}
+
+    public EntityDto(String eventType, String eventDetailType,
+                     String grade, String message, LocalDateTime startTime,
+                     LocalDateTime endTime, LocalDateTime expectedEndTime,
+                     LocalDateTime updateTime, LocationType locationType,
+                     String sectionCoord, String lanesBlocked, double xCoord,
+                     double yCoord, String roadDrcType) {
+        this.eventType = eventType;
+        this.eventDetailType = eventDetailType;
+        this.grade = grade;
+        this.message = message;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.expectedEndTime = expectedEndTime;
+        this.updateTime = updateTime;
+        this.locationType = locationType;
+        this.sectionCoord = sectionCoord;
+        this.lanesBlocked = lanesBlocked;
+        this.xCoord = xCoord;
+        this.yCoord = yCoord;
+        this.roadDrcType = roadDrcType;
+    }
 
     private String eventType; //이벤트 유형
     private String eventDetailType; //이벤트 세부 유형

@@ -11,6 +11,8 @@ spring:
       allowed-headers: "*"
       allow-credentials: true
 
+  quartz:
+    job-store-type: memory
   batch:
     job:
       enabled: false
@@ -18,18 +20,11 @@ spring:
       initialize-schema: always
       schema: classpath:org/springframework/batch/core/schema-mysql.sql
 
-  datasource:
-    meta:  # 메타데이터용 DB
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/batch_meta
-      username: root
-      password: root
-    domain:  # 배치 작업(도메인) 데이터 DB
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/traffic_info
-      username: root
-      password: root
-      auto-commit: false
+  datasource:  # 배치 작업(도메인) 데이터 DB
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/traffic_info
+    username: root
+    password: root
 
 
   jpa:
@@ -41,7 +36,11 @@ spring:
         show_sql: true
         format_sql: true
         dialect: org.hibernate.dialect.MySQL8Dialect
-    open-in-view: false
+  devtools:
+    restart:
+      enabled: true
+    livereload:
+      enabled: true
 
 #mybatis:
 #  mapper-locations: classpath:Mappers/*.xml
@@ -52,5 +51,7 @@ server:
   port: 8080
 
 logging.level:
-  org.hibernate.SQL: debug
+  org.hibernate.SQL: trace
   org.hibernate.type: trace
+  org.quartz: debug
+
