@@ -1,13 +1,11 @@
 package SmartSafetyMap.backend.repository;
 
 import SmartSafetyMap.backend.dtos.EntityDto;
-import SmartSafetyMap.backend.entity.EventTime;
 import SmartSafetyMap.backend.entity.TrafficInfo;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,7 +27,7 @@ public class TrafficInfoReposity {
         em.flush();
     }
 
-
+    //데이터를 전부 가져오는 쿼리문
     public List<EntityDto> getAllAcident() {
         return em.createQuery(
                         "select new SmartSafetyMap.backend.dtos.EntityDto(" +
@@ -44,18 +42,7 @@ public class TrafficInfoReposity {
                         EntityDto.class)
                 .getResultList();
     }
+    //검색기능도 생길수도 있음
 
-
-
-//    public List<EntityManager> getEntityManagers(double myXCoord, double myYCoord) {
-//        em.createQuery("select new SmartSafetyMap.backend.dtos.EntityDto() from " +
-//                "TrafficInfo ti LEFT join ti.locationInfo li " +
-//                "LEFT join ti.eventInfo ei " +
-//                "LEFT join ti.eventTime et " +
-//                "where li.xCoord < :myXCoord ")
-//                .setParameter("myXCoord", myXCoord)
-//                .setParameter("myYCoord", myYCoord)
-//                .getResultList();
-//    }
 
 }

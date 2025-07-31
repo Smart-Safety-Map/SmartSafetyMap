@@ -8,7 +8,6 @@ import SmartSafetyMap.backend.repository.LocationInfoRepository;
 import SmartSafetyMap.backend.repository.TrafficInfoReposity;
 import SmartSafetyMap.backend.xmlDto.NTICResponse;
 import lombok.AllArgsConstructor;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -95,13 +94,10 @@ public class NticPersistenceService {
 
 
 
-    //엔티티로 매핑한 로직을통해 엔티티들에게 저장하는 로직 db저장못하는 문제 해결 못함
+    //엔티티로 매핑한 로직을통해 엔티티들에게 저장하는 로직
     @Transactional
     public void allSave(List<EntityDto> entityDtos) {
-        int a = 1;
         for (EntityDto entityDto : entityDtos) {
-            //3개 엔티티들 저장하는 로직 + trafficinfo에 저장 그리고 repository에 세이브까지
-            //시간 괜찮다면 배치로직입문까지
             trafficInfoReposity.save(TrafficInfo.fromDto(entityDto,
                     new EventTime().getEventTime(entityDto),
                     new LocationInfo().getLocationInfo(entityDto),
