@@ -1,14 +1,9 @@
 package SmartSafetyMap.backend.service;
 
-import SmartSafetyMap.backend.dtos.EntityDto;
-import SmartSafetyMap.backend.repository.TrafficInfoReposity;
 import SmartSafetyMap.backend.xmlDto.NTICResponse;
 import SmartSafetyMap.backend.xmlDto.NTICXmlDto;
-import SmartSafetyMap.backend.xmlDto.UTICResponse;
-import SmartSafetyMap.backend.xmlDto.UTICXmlDto;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

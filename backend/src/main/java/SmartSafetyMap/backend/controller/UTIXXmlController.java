@@ -1,4 +1,4 @@
-package SmartSafetyMap.backend.domain;
+package SmartSafetyMap.backend.controller;
 
 import SmartSafetyMap.backend.dtos.EntityDto;
 import SmartSafetyMap.backend.service.UTICPersistenceService;
